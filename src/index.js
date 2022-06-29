@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { Provider } from 'react-redux';
 import store from './store';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
+    <Provider store={ store }>
       <App />
     </Provider>
   </BrowserRouter>,

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 class Game extends Component {
-  state = {  } 
-  render() { 
+  state = { }
+
+  render() {
     return (
       <div>
         Game
@@ -10,5 +11,5 @@ class Game extends Component {
     );
   }
 }
- 
+
 export default Game;

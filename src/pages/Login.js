@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getToken } from '../actions';
 import logo from '../trivia.png';
@@ -85,5 +86,10 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
+};
 
 export default connect()(Login);
