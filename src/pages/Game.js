@@ -14,17 +14,28 @@ class Game extends Component {
     question: '',
     index: 0,
     answered: false,
+    timer: 30,
   }
 
   componentDidMount() {
+    const milliseconds = 1000;
     const { email } = this.props;
     const emailString = md5(email).toString();
+
+    this.timeLeft = setInterval(() => {
+      this.setState((prev) => ({ timer: prev.timer - 1 }));
+    }, milliseconds);
+
     this.setState({ emailString });
     this.getQuestions();
   }
 
+  componentDidUpdate() {
+    const { timer } = this.state;
+    if (timer === 0) this.timesUp();
+  }
+
   getQuestions = async () => {
-    // const { token } = this.props;
     const token = localStorage.getItem('token');
     const numQuestions = 5;
     const url = `https://opentdb.com/api.php?amount=${numQuestions}&token=${token}`;
@@ -35,6 +46,7 @@ class Game extends Component {
 
   getTrivia = ({ results, response_code: response }) => {
     const { history } = this.props;
+    const rng = 0.5;
     const ERROR_CODE = 3;
     if (response === ERROR_CODE) {
       localStorage.setItem('token', '');
@@ -44,7 +56,8 @@ class Game extends Component {
         questions: results,
         category: results[0].category,
         correctAnswer: results[0].correct_answer,
-        answers: results[0].incorrect_answers.concat(results[0].correct_answer),
+        answers: results[0].incorrect_answers.concat(results[0].correct_answer)
+          .sort(() => Math.random() - rng),
         question: results[0].question,
         index: 0,
       });
@@ -53,8 +66,21 @@ class Game extends Component {
 
   answer = () => {
     const timeToWait = 1000;
-    this.setState({ answered: true });
+    clearInterval(this.timeLeft);
+    this.setState({
+      timer: 30,
+      answered: true,
+    });
+
     setTimeout(this.nextQuestion, timeToWait);
+  }
+
+  timesUp = () => {
+    clearInterval(this.timeLeft);
+    this.setState({
+      timer: 30,
+      answered: true,
+    });
   }
 
   nextQuestion = () => {
@@ -77,11 +103,11 @@ class Game extends Component {
       correctAnswer,
       answers,
       question,
-      answered } = this.state;
+      answered,
+      timer } = this.state;
 
     const { name } = this.props;
     const gravatar = 'https://www.gravatar.com/avatar/';
-    const rng = 0.5;
     return (
       <>
         <header className="game-header">
@@ -97,11 +123,12 @@ class Game extends Component {
           <Question
             category={ category }
             correctAnswer={ correctAnswer }
-            answers={ answers.sort(() => Math.random() - rng) }
+            answers={ answers }
             question={ question }
             nextQuestion={ this.nextQuestion }
             answerF={ this.answer }
             answered={ answered }
+            timer={ timer }
           />
         </main>
       </>
@@ -113,17 +140,14 @@ class Game extends Component {
 const mapStateToProps = (state) => ({
   name: state.triviaReducer.name,
   email: state.triviaReducer.email,
-  // token: state.triviaReducer.token,
 });
-
-// const mapDispatchToProps = {}
 
 Game.propTypes = {
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  // token: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
+
 export default connect(mapStateToProps)(Game);
