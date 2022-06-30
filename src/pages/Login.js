@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getToken } from '../actions';
 import logo from '../trivia.png';
 
 class Login extends Component {
@@ -28,24 +30,22 @@ class Login extends Component {
 
   submitForm = (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log(e.target);
-    this.fetchToken();
+    this.funcFetch();
   }
 
-  fetchToken = async () => {
-    const { history } = this.props;
-    const URL = 'https://opentdb.com/api_token.php?command=request';
+  funcFetch = async () => {
+    const urlToken = 'https://opentdb.com/api_token.php?command=request';
     try {
-      const response = await fetch(URL);
+      const response = await fetch(urlToken);
       const data = await response.json();
-      console.log(data);
+      console.log(data.token);
+      const { dispatch, history } = this.props;
+      dispatch(getToken(data.token));
       localStorage.setItem('token', data.token);
-    } catch (e) {
-      Error(console.log(e));
+      history.push('/game');
+    } catch (error) {
+      console.error(error);
     }
-
-    history.push('/game');
   }
 
   render() {
@@ -91,7 +91,8 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default connect()(Login);
