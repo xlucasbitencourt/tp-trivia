@@ -106,7 +106,7 @@ class Game extends Component {
       answered,
       timer } = this.state;
 
-    const { name } = this.props;
+    const { name, score } = this.props;
     const gravatar = 'https://www.gravatar.com/avatar/';
     return (
       <>
@@ -117,7 +117,7 @@ class Game extends Component {
             data-testid="header-profile-picture"
           />
           <span data-testid="header-player-name">{name}</span>
-          <span data-testid="header-score">0</span>
+          <span data-testid="header-score">{score}</span>
         </header>
         <main>
           <Question
@@ -137,9 +137,10 @@ class Game extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  name: state.triviaReducer.name,
-  email: state.triviaReducer.email,
+const mapStateToProps = ({ player }) => ({
+  name: player.name,
+  email: player.gravatarEmail,
+  score: player.score,
 });
 
 Game.propTypes = {
@@ -148,6 +149,7 @@ Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Game);
