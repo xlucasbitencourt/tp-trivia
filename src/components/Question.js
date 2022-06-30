@@ -16,7 +16,8 @@ class Question extends Component {
                 type="button"
                 data-testid={ `wrong-answer-${index}` }
                 onClick={ answerF }
-                className={ answered && 'question-wrong' }
+                className={ answered ? 'question-wrong' : undefined }
+                disabled={ answered }
               >
                 {answer}
               </button>
@@ -26,12 +27,13 @@ class Question extends Component {
                 type="button"
                 data-testid="correct-answer"
                 onClick={ answerF }
-                className={ answered && 'question-right' }
+                className={ answered ? 'question-right' : undefined }
+                disabled={ answered }
               >
                 {answer}
               </button>
             )
-          ))}
+          )) }
         </div>
       </div>
     );
