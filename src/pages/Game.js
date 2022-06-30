@@ -13,6 +13,7 @@ class Game extends Component {
     answers: [],
     question: '',
     index: 0,
+    answered: false,
   }
 
   componentDidMount() {
@@ -29,7 +30,6 @@ class Game extends Component {
     const url = `https://opentdb.com/api.php?amount=${numQuestions}&token=${token}`;
     const response = await fetch(url);
     const questions = await response.json();
-    console.log(questions);
     this.getTrivia(questions);
   }
 
@@ -51,6 +51,12 @@ class Game extends Component {
     }
   }
 
+  answer = () => {
+    const timeToWait = 1000;
+    this.setState({ answered: true });
+    setTimeout(this.nextQuestion, timeToWait);
+  }
+
   nextQuestion = () => {
     const { questions, index } = this.state;
     const next = index + 1;
@@ -60,6 +66,7 @@ class Game extends Component {
       answers: questions[next].incorrect_answers.concat(questions[next].correct_answer),
       question: questions[next].question,
       index: next,
+      answered: false,
     });
   }
 
@@ -69,7 +76,8 @@ class Game extends Component {
       category,
       correctAnswer,
       answers,
-      question } = this.state;
+      question,
+      answered } = this.state;
 
     const { name } = this.props;
     const gravatar = 'https://www.gravatar.com/avatar/';
@@ -92,6 +100,8 @@ class Game extends Component {
             answers={ answers.sort(() => Math.random() - rng) }
             question={ question }
             nextQuestion={ this.nextQuestion }
+            answerF={ this.answer }
+            answered={ answered }
           />
         </main>
       </>

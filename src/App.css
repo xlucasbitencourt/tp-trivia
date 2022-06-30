@@ -53,6 +53,14 @@ body {
   margin: 5px 0;
 }
 
+.question-right {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.question-wrong {
+  border: 3px solid red;
+}
+
 .red-border {
   border: 1px solid red;
 }
