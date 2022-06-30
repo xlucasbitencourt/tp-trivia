@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Question extends Component {
   render() {
-    const { category, correctAnswer, answers, question, nextQuestion } = this.props;
+    const { category, correctAnswer, answers, question, answerF, answered } = this.props;
     return (
       <div className="question">
         <h1 data-testid="question-category">{category}</h1>
@@ -15,7 +15,8 @@ class Question extends Component {
                 key={ answer }
                 type="button"
                 data-testid={ `wrong-answer-${index}` }
-                onClick={ nextQuestion }
+                onClick={ answerF }
+                className={ answered && 'question-wrong' }
               >
                 {answer}
               </button>
@@ -24,7 +25,8 @@ class Question extends Component {
                 key={ answer }
                 type="button"
                 data-testid="correct-answer"
-                onClick={ nextQuestion }
+                onClick={ answerF }
+                className={ answered && 'question-right' }
               >
                 {answer}
               </button>
@@ -41,7 +43,8 @@ Question.propTypes = {
   correctAnswer: PropTypes.string.isRequired,
   answers: PropTypes.instanceOf(Array).isRequired,
   question: PropTypes.string.isRequired,
-  nextQuestion: PropTypes.func.isRequired,
+  answerF: PropTypes.func.isRequired,
+  answered: PropTypes.bool.isRequired,
 };
 
 export default Question;
