@@ -1,8 +1,9 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import './App.css';
+// import logo from './trivia.png';
+import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Game from './pages/Game';
+import './App.css';
 import Settings from './pages/Settings';
 
 export default function App() {
@@ -12,5 +13,6 @@ export default function App() {
       <Route path="/game" exact component={ Game } />
       <Route path="/settings" exact component={ Settings } />
     </Switch>
+
   );
 }

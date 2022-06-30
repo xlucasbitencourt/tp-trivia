@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getToken } from '../actions';
+import { getToken, getEmail, getName } from '../actions';
 import logo from '../trivia.png';
 
 class Login extends Component {
@@ -34,13 +34,16 @@ class Login extends Component {
   }
 
   funcFetch = async () => {
+    const { nome, email } = this.state;
     const urlToken = 'https://opentdb.com/api_token.php?command=request';
     try {
       const response = await fetch(urlToken);
       const data = await response.json();
-      console.log(data.token);
+      // console.log(data.token);
       const { dispatch, history } = this.props;
       dispatch(getToken(data.token));
+      dispatch(getName(nome));
+      dispatch(getEmail(email));
       localStorage.setItem('token', data.token);
       history.push('/game');
     } catch (error) {
@@ -51,9 +54,9 @@ class Login extends Component {
   render() {
     const { nome, email, btnDisabled } = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
+      <div className="login">
+        <header className="login-header">
+          <img src={ logo } className="login-logo" alt="logo" />
           <p>SUA VEZ</p>
         </header>
         <form onSubmit={ this.submitForm }>
