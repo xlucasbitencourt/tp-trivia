@@ -36,6 +36,23 @@ body {
   margin: 0 5%;
 }
 
+.question {
+  color: lightseagreen;
+  font-size: 110%;
+  margin: 10% 30%;
+}
+
+.question-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.question-options button {
+  font-size: 150%;
+  height: 35px;
+  margin: 5px 0;
+}
+
 .red-border {
   border: 1px solid red;
 }
