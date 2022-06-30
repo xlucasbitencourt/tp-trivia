@@ -54,9 +54,9 @@ class Login extends Component {
   render() {
     const { nome, email, btnDisabled } = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
+      <div className="login">
+        <header className="login-header">
+          <img src={ logo } className="login-logo" alt="logo" />
           <p>SUA VEZ</p>
         </header>
         <form onSubmit={ this.submitForm }>

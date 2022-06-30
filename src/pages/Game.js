@@ -19,14 +19,14 @@ class Game extends Component {
     const { name } = this.props;
     const gravatar = 'https://www.gravatar.com/avatar/';
     return (
-      <header>
+      <header className="game-header">
         <img
           src={ `${gravatar}${emailString}` }
           alt="imagem jogador"
           data-testid="header-profile-picture"
         />
-        <p data-testid="header-player-name">{name}</p>
-        <p data-testid="header-score">0</p>
+        <span data-testid="header-player-name">{name}</span>
+        <span data-testid="header-score">0</span>
       </header>
     );
   }
