@@ -5,10 +5,10 @@ class Question extends Component {
   render() {
     const { category, correctAnswer, answers, question, nextQuestion } = this.props;
     return (
-      <div>
+      <div className="question">
         <h1 data-testid="question-category">{category}</h1>
         <h2 data-testid="question-text">{question}</h2>
-        <div data-testid="answer-options">
+        <div data-testid="answer-options" className="question-options">
           {answers.map((answer, index) => (
             answer !== correctAnswer ? (
               <button
