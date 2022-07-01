@@ -11,20 +11,27 @@ class Results extends Component {
   }
 
   render() {
+    const { assertions, score } = this.props;
     return (
-      <p data-testid="feedback-text">{this.message()}</p>
+      <div className="results">
+        <p data-testid="feedback-text">{this.message()}</p>
+        <p data-testid="feedback-total-score">{score}</p>
+        <p data-testid="feedback-total-question">{assertions}</p>
+      </div>
     );
   }
 }
 
 const mapStateToProps = ({ player }) => ({
   assertions: player.assertions,
+  score: player.score,
 });
 
 // const mapDispatchToProps = {}
 
 Results.propTypes = {
   assertions: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Results);

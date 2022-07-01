@@ -77,3 +77,9 @@ body {
   font-size: 30px;
   text-align: center;
 }
+
+.results {
+  color: azure;
+  font-size: 200%;
+  margin: 10% 30%;
+}
