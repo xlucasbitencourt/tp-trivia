@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getToken, getEmail, getName } from '../actions';
+import { getEmail, getName } from '../actions';
 import logo from '../trivia.png';
 
 class Login extends Component {
@@ -41,7 +41,7 @@ class Login extends Component {
       const data = await response.json();
       // console.log(data.token);
       const { dispatch, history } = this.props;
-      dispatch(getToken(data.token));
+      // dispatch(getToken(data.token));
       dispatch(getName(nome));
       dispatch(getEmail(email));
       localStorage.setItem('token', data.token);

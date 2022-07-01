@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import Question from '../components/Question';
+import { getScore } from '../actions';
 
 class Game extends Component {
   state = {
@@ -10,12 +11,13 @@ class Game extends Component {
     questions: [],
     category: '',
     correctAnswer: '',
+    difficulty: '', // easy, medium or hard
     answers: [],
     question: '',
     index: 0,
     answered: false,
     timer: 30,
-  }
+  };
 
   componentDidMount() {
     const milliseconds = 1000;
@@ -41,8 +43,9 @@ class Game extends Component {
     const url = `https://opentdb.com/api.php?amount=${numQuestions}&token=${token}`;
     const response = await fetch(url);
     const questions = await response.json();
+    console.log(questions);
     this.getTrivia(questions);
-  }
+  };
 
   getTrivia = ({ results, response_code: response }) => {
     const { history } = this.props;
@@ -56,16 +59,21 @@ class Game extends Component {
         questions: results,
         category: results[0].category,
         correctAnswer: results[0].correct_answer,
-        answers: results[0].incorrect_answers.concat(results[0].correct_answer)
+        difficulty: results[0].difficulty,
+        answers: results[0].incorrect_answers
+          .concat(results[0].correct_answer)
           .sort(() => Math.random() - rng),
         question: results[0].question,
         index: 0,
       });
     }
-  }
+  };
 
-  answer = () => {
+  answer = ({ target }) => {
     const timeToWait = 1000;
+    const correct = target.dataset.testid.split('-')[0];
+    if (correct === 'correct') this.setScore();
+
     clearInterval(this.timeLeft);
     this.setState({
       timer: 30,
@@ -73,7 +81,7 @@ class Game extends Component {
     });
 
     setTimeout(this.nextQuestion, timeToWait);
-  }
+  };
 
   timesUp = () => {
     clearInterval(this.timeLeft);
@@ -81,7 +89,7 @@ class Game extends Component {
       timer: 30,
       answered: true,
     });
-  }
+  };
 
   nextQuestion = () => {
     const { questions, index } = this.state;
@@ -94,7 +102,32 @@ class Game extends Component {
       index: next,
       answered: false,
     });
-  }
+  };
+
+  setScore = () => {
+    const { timer, difficulty } = this.state;
+    const { dispatch, score } = this.props;
+    const easy = 1;
+    const medium = 2;
+    const hard = 3;
+    const base = 10;
+    let diff = 0;
+    switch (difficulty) {
+    case 'easy':
+      diff = easy;
+      break;
+    case 'medium':
+      diff = medium;
+      break;
+    case 'hard':
+      diff = hard;
+      break;
+    default:
+      diff = 0;
+    }
+    const total = score + (base + timer * diff);
+    dispatch(getScore(total));
+  };
 
   render() {
     const {
@@ -103,10 +136,9 @@ class Game extends Component {
       correctAnswer,
       answers,
       question,
-      answered,
-      timer } = this.state;
+      answered } = this.state;
 
-    const { name } = this.props;
+    const { name, score } = this.props;
     const gravatar = 'https://www.gravatar.com/avatar/';
     return (
       <>
@@ -117,29 +149,27 @@ class Game extends Component {
             data-testid="header-profile-picture"
           />
           <span data-testid="header-player-name">{name}</span>
-          <span data-testid="header-score">0</span>
+          <span data-testid="header-score">{score}</span>
         </header>
-        <main>
-          <Question
-            category={ category }
-            correctAnswer={ correctAnswer }
-            answers={ answers }
-            question={ question }
-            nextQuestion={ this.nextQuestion }
-            answerF={ this.answer }
-            answered={ answered }
-            timer={ timer }
-          />
-        </main>
+        <Question
+          category={ category }
+          correctAnswer={ correctAnswer }
+          answers={ answers }
+          question={ question }
+          nextQuestion={ this.nextQuestion }
+          answerF={ this.answer }
+          answered={ answered }
+        />
       </>
-
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  name: state.triviaReducer.name,
-  email: state.triviaReducer.email,
+const mapStateToProps = ({ player }) => ({
+  name: player.name,
+  assertions: player.assertions,
+  score: player.score,
+  email: player.gravatarEmail,
 });
 
 Game.propTypes = {
@@ -148,6 +178,8 @@ Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  score: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Game);

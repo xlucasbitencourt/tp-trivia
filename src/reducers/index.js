@@ -1,24 +1,29 @@
 import { combineReducers } from 'redux';
-import { GET_EMAIL, GET_NAME, GET_TOKEN } from '../actions';
+import { GET_EMAIL, GET_NAME, GET_SCORE } from '../actions';
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+  name: 'Anonimo',
+  assertions: 0,
+  score: 0,
+  gravatarEmail: 'anonimo@email.com',
+};
 
-const triviaReducer = (state = INITIAL_STATE, action) => {
+const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case GET_TOKEN:
-    return { ...state, token: action.payload };
-
   case GET_NAME:
     return { ...state, name: action.payload };
 
   case GET_EMAIL:
-    return { ...state, email: action.payload };
+    return { ...state, gravatarEmail: action.payload };
+
+  case GET_SCORE:
+    return { ...state, score: action.payload };
 
   default:
     return state;
   }
 };
 
-const rootReducer = combineReducers({ triviaReducer });
+const rootReducer = combineReducers({ player });
 
 export default rootReducer;

@@ -5,7 +5,7 @@ class Question extends Component {
   render() {
     const { category, correctAnswer, answers, question, answerF, answered } = this.props;
     return (
-      <div className="question">
+      <main className="question">
         <h1 data-testid="question-category">{category}</h1>
         <h2 data-testid="question-text">{question}</h2>
         <div data-testid="answer-options" className="question-options">
@@ -35,7 +35,7 @@ class Question extends Component {
             )
           )) }
         </div>
-      </div>
+      </main>
     );
   }
 }
