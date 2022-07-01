@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { GET_EMAIL, GET_NAME } from '../actions';
+import { GET_EMAIL, GET_NAME, GET_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   name: 'Anonimo',
@@ -15,6 +15,9 @@ const player = (state = INITIAL_STATE, action) => {
 
   case GET_EMAIL:
     return { ...state, gravatarEmail: action.payload };
+
+  case GET_SCORE:
+    return { ...state, score: action.payload };
 
   default:
     return state;
