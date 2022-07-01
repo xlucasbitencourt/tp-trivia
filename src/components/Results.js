@@ -18,6 +18,7 @@ class Results extends Component {
         <p data-testid="feedback-text">{this.message()}</p>
         <p data-testid="feedback-total-score">{score}</p>
         <p data-testid="feedback-total-question">{assertions}</p>
+        <Link to="/ranking" data-testid="btn-ranking">Ranking</Link>
         <Link to="/" data-testid="btn-play-again">Play Again</Link>
       </div>
     );
