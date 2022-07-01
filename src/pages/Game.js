@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import Question from '../components/Question';
-import { getScore } from '../actions';
+import { getAssertion, getScore } from '../actions';
+import Header from '../components/Header';
 
 class Game extends Component {
   state = {
-    emailString: '',
     questions: [],
     category: '',
     correctAnswer: '',
@@ -21,15 +20,7 @@ class Game extends Component {
   };
 
   componentDidMount() {
-    const milliseconds = 1000;
-    const { email } = this.props;
-    const emailString = md5(email).toString();
-
-    this.timeLeft = setInterval(() => {
-      this.setState((prev) => ({ timer: prev.timer - 1 }));
-    }, milliseconds);
-
-    this.setState({ emailString });
+    this.counter();
     this.getQuestions();
   }
 
@@ -37,6 +28,14 @@ class Game extends Component {
     const { timer } = this.state;
     if (timer === 0) this.timesUp();
   }
+
+  counter = () => {
+    const milliseconds = 1000;
+
+    this.timeLeft = setInterval(() => {
+      this.setState((prev) => ({ timer: prev.timer - 1 }));
+    }, milliseconds);
+  };
 
   getQuestions = async () => {
     const token = localStorage.getItem('token');
@@ -71,9 +70,8 @@ class Game extends Component {
   };
 
   answer = ({ target }) => {
-    // const timeToWait = 1000;
-    const correct = target.dataset.testid.split('-')[0];
-    if (correct === 'correct') this.setScore();
+    const correct = target.dataset.testid;
+    if (correct === 'correct-answer') this.setScore();
 
     clearInterval(this.timeLeft);
     this.setState({
@@ -81,8 +79,6 @@ class Game extends Component {
       answered: true,
       next: true,
     });
-
-    // setTimeout(this.nextQuestion, timeToWait);
   };
 
   timesUp = () => {
@@ -110,12 +106,13 @@ class Game extends Component {
         answered: false,
         next: false,
       });
+      this.counter();
     }
   };
 
   setScore = () => {
     const { timer, difficulty } = this.state;
-    const { dispatch, score } = this.props;
+    const { dispatch, score, assertions } = this.props;
     const easy = 1;
     const medium = 2;
     const hard = 3;
@@ -135,34 +132,26 @@ class Game extends Component {
       diff = 0;
     }
     const total = score + (base + timer * diff);
+    const assertion = assertions + 1;
     dispatch(getScore(total));
+    dispatch(getAssertion(assertion));
   };
 
   render() {
     const {
-      emailString,
       category,
       correctAnswer,
       answers,
       question,
       answered,
       next,
-      index } = this.state;
+      index,
+      timer } = this.state;
 
-    const { name, score } = this.props;
-    const gravatar = 'https://www.gravatar.com/avatar/';
     const maxQuestions = 4;
     return (
       <>
-        <header className="game-header">
-          <img
-            src={ `${gravatar}${emailString}` }
-            alt="imagem jogador"
-            data-testid="header-profile-picture"
-          />
-          <span data-testid="header-player-name">{name}</span>
-          <span data-testid="header-score">{score}</span>
-        </header>
+        <Header />
         <div className="container">
           <Question
             category={ category }
@@ -185,6 +174,7 @@ class Game extends Component {
               </button>
             )
           }
+          <p className="timer">{timer}</p>
         </div>
       </>
     );
@@ -199,12 +189,11 @@ const mapStateToProps = ({ player }) => ({
 });
 
 Game.propTypes = {
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
   score: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

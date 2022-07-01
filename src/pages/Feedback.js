@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
+import Results from '../components/Results';
 
 class Feedback extends Component {
   // state = {  }
   render() {
     return (
       <div data-testid="feedback-text">
-        <h1>Feedback</h1>
+        <Header />
+        <Results />
       </div>
     );
   }
