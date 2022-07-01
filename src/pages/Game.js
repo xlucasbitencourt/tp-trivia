@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Question from '../components/Question';
-import { getScore } from '../actions';
+import { getAssertion, getScore } from '../actions';
 import Header from '../components/Header';
 
 class Game extends Component {
@@ -70,9 +70,8 @@ class Game extends Component {
   };
 
   answer = ({ target }) => {
-    // const timeToWait = 1000;
-    const correct = target.dataset.testid.split('-')[0];
-    if (correct === 'correct') this.setScore();
+    const correct = target.dataset.testid;
+    if (correct === 'correct-answer') this.setScore();
 
     clearInterval(this.timeLeft);
     this.setState({
@@ -80,8 +79,6 @@ class Game extends Component {
       answered: true,
       next: true,
     });
-
-    // setTimeout(this.nextQuestion, timeToWait);
   };
 
   timesUp = () => {
@@ -115,7 +112,7 @@ class Game extends Component {
 
   setScore = () => {
     const { timer, difficulty } = this.state;
-    const { dispatch, score } = this.props;
+    const { dispatch, score, assertions } = this.props;
     const easy = 1;
     const medium = 2;
     const hard = 3;
@@ -135,7 +132,9 @@ class Game extends Component {
       diff = 0;
     }
     const total = score + (base + timer * diff);
+    const assertion = assertions + 1;
     dispatch(getScore(total));
+    dispatch(getAssertion(assertion));
   };
 
   render() {
@@ -194,6 +193,7 @@ Game.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   score: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

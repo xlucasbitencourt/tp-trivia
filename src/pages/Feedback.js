@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
+import Results from '../components/Results';
 
 class Feedback extends Component {
   // state = {  }
@@ -7,7 +8,7 @@ class Feedback extends Component {
     return (
       <div data-testid="feedback-text">
         <Header />
-        <h1>Feedback</h1>
+        <Results />
       </div>
     );
   }
