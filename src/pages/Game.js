@@ -17,6 +17,7 @@ class Game extends Component {
     index: 0,
     answered: false,
     timer: 30,
+    next: false,
   };
 
   componentDidMount() {
@@ -70,7 +71,7 @@ class Game extends Component {
   };
 
   answer = ({ target }) => {
-    const timeToWait = 1000;
+    // const timeToWait = 1000;
     const correct = target.dataset.testid.split('-')[0];
     if (correct === 'correct') this.setScore();
 
@@ -78,9 +79,10 @@ class Game extends Component {
     this.setState({
       timer: 30,
       answered: true,
+      next: true,
     });
 
-    setTimeout(this.nextQuestion, timeToWait);
+    // setTimeout(this.nextQuestion, timeToWait);
   };
 
   timesUp = () => {
@@ -88,6 +90,7 @@ class Game extends Component {
     this.setState({
       timer: 30,
       answered: true,
+      next: true,
     });
   };
 
@@ -101,6 +104,7 @@ class Game extends Component {
       question: questions[next].question,
       index: next,
       answered: false,
+      next: false,
     });
   };
 
@@ -136,7 +140,8 @@ class Game extends Component {
       correctAnswer,
       answers,
       question,
-      answered } = this.state;
+      answered,
+      next } = this.state;
 
     const { name, score } = this.props;
     const gravatar = 'https://www.gravatar.com/avatar/';
@@ -151,15 +156,29 @@ class Game extends Component {
           <span data-testid="header-player-name">{name}</span>
           <span data-testid="header-score">{score}</span>
         </header>
-        <Question
-          category={ category }
-          correctAnswer={ correctAnswer }
-          answers={ answers }
-          question={ question }
-          nextQuestion={ this.nextQuestion }
-          answerF={ this.answer }
-          answered={ answered }
-        />
+        <div className="container">
+          <Question
+            category={ category }
+            correctAnswer={ correctAnswer }
+            answers={ answers }
+            question={ question }
+            nextQuestion={ this.nextQuestion }
+            answerF={ this.answer }
+            answered={ answered }
+          />
+          {
+            next && (
+              <button
+                className="next"
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.nextQuestion }
+              >
+                Next
+              </button>
+            )
+          }
+        </div>
       </>
     );
   }
