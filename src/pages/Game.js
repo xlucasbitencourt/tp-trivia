@@ -96,16 +96,21 @@ class Game extends Component {
 
   nextQuestion = () => {
     const { questions, index } = this.state;
+    const { history } = this.props;
+    const maxQuestions = 4;
     const next = index + 1;
-    this.setState({
-      category: questions[next].category,
-      correctAnswer: questions[next].correct_answer,
-      answers: questions[next].incorrect_answers.concat(questions[next].correct_answer),
-      question: questions[next].question,
-      index: next,
-      answered: false,
-      next: false,
-    });
+    if (index === maxQuestions) history.push('/feedback');
+    else {
+      this.setState({
+        category: questions[next].category,
+        correctAnswer: questions[next].correct_answer,
+        answers: questions[next].incorrect_answers.concat(questions[next].correct_answer),
+        question: questions[next].question,
+        index: next,
+        answered: false,
+        next: false,
+      });
+    }
   };
 
   setScore = () => {
@@ -141,10 +146,12 @@ class Game extends Component {
       answers,
       question,
       answered,
-      next } = this.state;
+      next,
+      index } = this.state;
 
     const { name, score } = this.props;
     const gravatar = 'https://www.gravatar.com/avatar/';
+    const maxQuestions = 4;
     return (
       <>
         <header className="game-header">
@@ -174,7 +181,7 @@ class Game extends Component {
                 data-testid="btn-next"
                 onClick={ this.nextQuestion }
               >
-                Next
+                {index === maxQuestions ? 'Feedback' : 'Next'}
               </button>
             )
           }
