@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Results extends Component {
   message = () => {
@@ -17,6 +18,7 @@ class Results extends Component {
         <p data-testid="feedback-text">{this.message()}</p>
         <p data-testid="feedback-total-score">{score}</p>
         <p data-testid="feedback-total-question">{assertions}</p>
+        <Link to="/" data-testid="btn-play-again">Play Again</Link>
       </div>
     );
   }
