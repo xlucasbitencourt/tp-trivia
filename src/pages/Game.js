@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import Question from '../components/Question';
 import { getScore } from '../actions';
+import Header from '../components/Header';
 
 class Game extends Component {
   state = {
-    emailString: '',
     questions: [],
     category: '',
     correctAnswer: '',
@@ -22,14 +21,11 @@ class Game extends Component {
 
   componentDidMount() {
     const milliseconds = 1000;
-    const { email } = this.props;
-    const emailString = md5(email).toString();
 
     this.timeLeft = setInterval(() => {
       this.setState((prev) => ({ timer: prev.timer - 1 }));
     }, milliseconds);
 
-    this.setState({ emailString });
     this.getQuestions();
   }
 
@@ -140,7 +136,6 @@ class Game extends Component {
 
   render() {
     const {
-      emailString,
       category,
       correctAnswer,
       answers,
@@ -149,20 +144,10 @@ class Game extends Component {
       next,
       index } = this.state;
 
-    const { name, score } = this.props;
-    const gravatar = 'https://www.gravatar.com/avatar/';
     const maxQuestions = 4;
     return (
       <>
-        <header className="game-header">
-          <img
-            src={ `${gravatar}${emailString}` }
-            alt="imagem jogador"
-            data-testid="header-profile-picture"
-          />
-          <span data-testid="header-player-name">{name}</span>
-          <span data-testid="header-score">{score}</span>
-        </header>
+        <Header />
         <div className="container">
           <Question
             category={ category }
@@ -199,8 +184,6 @@ const mapStateToProps = ({ player }) => ({
 });
 
 Game.propTypes = {
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
