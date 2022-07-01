@@ -20,12 +20,7 @@ class Game extends Component {
   };
 
   componentDidMount() {
-    const milliseconds = 1000;
-
-    this.timeLeft = setInterval(() => {
-      this.setState((prev) => ({ timer: prev.timer - 1 }));
-    }, milliseconds);
-
+    this.counter();
     this.getQuestions();
   }
 
@@ -33,6 +28,14 @@ class Game extends Component {
     const { timer } = this.state;
     if (timer === 0) this.timesUp();
   }
+
+  counter = () => {
+    const milliseconds = 1000;
+
+    this.timeLeft = setInterval(() => {
+      this.setState((prev) => ({ timer: prev.timer - 1 }));
+    }, milliseconds);
+  };
 
   getQuestions = async () => {
     const token = localStorage.getItem('token');
@@ -106,6 +109,7 @@ class Game extends Component {
         answered: false,
         next: false,
       });
+      this.counter();
     }
   };
 
@@ -142,7 +146,8 @@ class Game extends Component {
       question,
       answered,
       next,
-      index } = this.state;
+      index,
+      timer } = this.state;
 
     const maxQuestions = 4;
     return (
@@ -170,6 +175,7 @@ class Game extends Component {
               </button>
             )
           }
+          <p className="timer">{timer}</p>
         </div>
       </>
     );

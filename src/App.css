@@ -71,3 +71,9 @@ body {
   height: 50px;
   width: 40%;
 }
+
+.timer {
+  color: azure;
+  font-size: 30px;
+  text-align: center;
+}
