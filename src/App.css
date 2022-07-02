@@ -83,3 +83,22 @@ body {
   font-size: 200%;
   margin: 10% 30%;
 }
+
+.ranking {
+  color: azure;
+  font-size: 150%;
+  margin: 10%;
+}
+
+.player {
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.play-again {
+  color: blue;
+  margin: 20%;
+  text-decoration: none;
+}

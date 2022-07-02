@@ -20,8 +20,8 @@ class Game extends Component {
   };
 
   componentDidMount() {
-    this.counter();
     this.getQuestions();
+    this.counter();
   }
 
   componentDidUpdate() {
@@ -43,7 +43,6 @@ class Game extends Component {
     const url = `https://opentdb.com/api.php?amount=${numQuestions}&token=${token}`;
     const response = await fetch(url);
     const questions = await response.json();
-    console.log(questions);
     this.getTrivia(questions);
   };
 

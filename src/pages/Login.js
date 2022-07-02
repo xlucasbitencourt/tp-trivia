@@ -39,9 +39,7 @@ class Login extends Component {
     try {
       const response = await fetch(urlToken);
       const data = await response.json();
-      // console.log(data.token);
       const { dispatch, history } = this.props;
-      // dispatch(getToken(data.token));
       dispatch(getName(nome));
       dispatch(getEmail(email));
       localStorage.setItem('token', data.token);
