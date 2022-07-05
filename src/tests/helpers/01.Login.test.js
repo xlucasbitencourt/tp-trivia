@@ -5,7 +5,7 @@ import {renderWithRouterAndRedux} from './renderWithRouterAndRedux.js'
 // import Login from '../../pages/Login';
 import App from '../../App'
 
-test('Testa se todos os elementos estão na tela', async()=> {
+test('Testa se todos os elementos estão na tela', async ()=> {
     const {history} = renderWithRouterAndRedux(<App/>)
     const triviaImg = screen.getByAltText('logo')
     const suaVez = screen.getByText(/sua vez/i)
