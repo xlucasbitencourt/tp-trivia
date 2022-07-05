@@ -13,7 +13,7 @@ class Ranking extends Component {
           value="back"
           onClick={ () => history.push('/') }
         >
-          Voltar para a Home
+          Home
         </button>
 
       </>
