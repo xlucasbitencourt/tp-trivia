@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { GET_ASSERTION, GET_EMAIL, GET_NAME, GET_SCORE } from '../actions';
+import { GET_ASSERTION, GET_EMAIL, GET_NAME, GET_RESET, GET_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   name: 'Anonimo',
@@ -21,6 +21,9 @@ const player = (state = INITIAL_STATE, action) => {
 
   case GET_ASSERTION:
     return { ...state, assertions: action.payload };
+
+  case GET_RESET:
+    return INITIAL_STATE;
 
   default:
     return state;
