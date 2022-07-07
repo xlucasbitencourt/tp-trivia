@@ -76,6 +76,7 @@ class Login extends Component {
             placeholder="Email"
           />
           <br />
+          <br />
           <button
             type="submit"
             data-testid="btn-play"
@@ -84,6 +85,7 @@ class Login extends Component {
             Play
           </button>
         </form>
+        <br />
         <Link to="/settings" data-testid="btn-settings">Settings</Link>
       </div>
     );

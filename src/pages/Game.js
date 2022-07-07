@@ -173,6 +173,7 @@ class Game extends Component {
               </button>
             )
           }
+          <p className="timer">Tempo restante:</p>
           <p className="timer">{timer}</p>
         </div>
       </>

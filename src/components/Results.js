@@ -16,10 +16,27 @@ class Results extends Component {
     return (
       <div className="results">
         <p data-testid="feedback-text">{this.message()}</p>
-        <p data-testid="feedback-total-score">{score}</p>
-        <p data-testid="feedback-total-question">{assertions}</p>
-        <Link to="/ranking" data-testid="btn-ranking">Ranking</Link>
-        <Link to="/" data-testid="btn-play-again">Play Again</Link>
+        <span>Pontuação: </span>
+        <span data-testid="feedback-total-score">{score}</span>
+        <br />
+        <span>Acertos: </span>
+        <span data-testid="feedback-total-question">{assertions}</span>
+        <br />
+        <Link
+          className="button-feedback"
+          to="/ranking"
+          data-testid="btn-ranking"
+        >
+          Ranking
+        </Link>
+        <br />
+        <Link
+          className="button-feedback"
+          to="/"
+          data-testid="btn-play-again"
+        >
+          Play Again
+        </Link>
       </div>
     );
   }

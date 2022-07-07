@@ -9,6 +9,16 @@ body {
   text-align: center;
 }
 
+.login a, .login button {
+  color: azure;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+button:enabled {
+  color: #262930;
+}
+
 .login-logo {
   height: 15vmin;
   pointer-events: none;
@@ -101,4 +111,8 @@ body {
   color: blue;
   margin: 20%;
   text-decoration: none;
+}
+
+.button-feedback {
+  color: azure;
 }

@@ -26,6 +26,7 @@ class Header extends Component {
           data-testid="header-profile-picture"
         />
         <span data-testid="header-player-name">{name}</span>
+        <span>Pontuação: </span>
         <span data-testid="header-score">{score}</span>
       </header>
     );
