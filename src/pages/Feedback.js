@@ -37,10 +37,11 @@ class Feedback extends Component {
   }
 
   render() {
+    const { history } = this.props;
     return (
       <div data-testid="feedback-text">
         <Header />
-        <Results />
+        <Results history={ history } />
       </div>
     );
   }
@@ -56,6 +57,9 @@ Feedback.propTypes = {
   name: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);

@@ -1,35 +1,62 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class Ranking extends Component {
   state = {
     ranking: [],
+    first: false,
   }
 
   componentDidMount() {
-    const list = JSON.parse(localStorage.getItem('ranking'));
-    const sortList = list.sort((a, b) => b.score - a.score);
-    this.setState({ ranking: sortList });
+    if (localStorage.getItem('ranking')) {
+      const list = JSON.parse(localStorage.getItem('ranking'));
+      const sortList = list.sort((a, b) => b.score - a.score);
+      this.setState({
+        ranking: sortList,
+        first: false,
+      });
+    } else this.setState({ first: true });
   }
 
   render() {
-    const { ranking } = this.state;
+    const { ranking, first } = this.state;
+    const { history } = this.props;
+    // if (first) return <p>Primeira vez</p>;
     return (
       <div className="ranking">
         <p data-testid="ranking-title">Ranking</p>
         {
-          ranking.map((player, index) => (
-            <div className="player" key={ index }>
-              <span data-testid={ `player-name-${index}` }>{player.name}</span>
-              <span data-testid={ `player-score-${index}` }>{player.score}</span>
+          !first && (
+            <div className="player-container">
+              {
+                ranking.map((player, index) => (
+                  <div className="player" key={ index }>
+                    <span data-testid={ `player-name-${index}` }>{player.name}</span>
+                    <span data-testid={ `player-score-${index}` }>{player.score}</span>
+                  </div>
+                ))
+              }
             </div>
-          ))
+          )
         }
         <br />
-        <Link to="/" data-testid="btn-go-home" className="play-again">Play Again</Link>
+        <button
+          className="button-login play-again"
+          onClick={ () => history.push('/') }
+          type="button"
+          data-testid="btn-go-home"
+        >
+          Play Again
+        </button>
       </div>
     );
   }
 }
+
+Ranking.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Ranking;
