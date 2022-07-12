@@ -14,6 +14,17 @@
 
   --shadow: 1px 1px 5px var(--purple) , 0 0 25px var(--cyan) , 0 0 5px var(--yellow);
 
+  --box1: var(--purple) 0 0 0 3px;
+
+  --box2: var(--pink) 0 0 0 6px;
+
+  --box3: var(--yellow) 0 0 0 9px;
+
+  --box4: var(--blue) 0 0 0 12px;
+
+  --box5: var(--cyan) 0 0 0 15px;
+
+  --box-answer: var(--box1) , var(--box2) , var(--box3) , var(--box4) , var(--box5);
 }
 
 body {
@@ -119,9 +130,10 @@ input::placeholder {
 }
 
 .question {
-  color: lightseagreen;
-  font-size: 110%;
-  margin: 10% 30%;
+  color: whitesmoke;
+  font-size: 100%;
+  margin: 2% 10% 5%;
+  text-shadow: var(--shadow);
 }
 
 .question-options {
@@ -130,17 +142,43 @@ input::placeholder {
 }
 
 .question-options button {
+  border-radius: 20px;
+  border-style: none;
+  box-shadow: var(--box-answer);
   font-size: 150%;
-  height: 35px;
-  margin: 5px 0;
+  padding: 5px 10px;
+  text-shadow: var(--shadow);
+  transition: all 500ms;
+}
+
+.question-options button:enabled {
+  background-color: var(--blue);
+  color: var(--yellow);
+  margin: 20px 0;
+}
+
+.question-options button:disabled {
+  border-style: solid;
+  box-shadow: none;
+}
+
+.question-options button:enabled:hover {
+  background-color: var(--yellow);
+  color: var(--blue);
 }
 
 .question-right {
+  background-color: rgb(6, 240, 15);
   border: 3px solid rgb(6, 240, 15);
+  color: whitesmoke;
+  margin: 10px 0;
 }
 
 .question-wrong {
+  background-color: red;
   border: 3px solid red;
+  color: black;
+  margin: 10px 0;
 }
 
 .next {
@@ -188,5 +226,10 @@ input::placeholder {
 
   .login-logo {
     width: 600px;
+  }
+
+  .question {
+    margin: 5% auto;
+    width: 800px;
   }
 }
