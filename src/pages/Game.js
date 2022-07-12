@@ -17,11 +17,11 @@ class Game extends Component {
     answered: false,
     timer: 30,
     next: false,
+    showTimer: false,
   };
 
   componentDidMount() {
     this.getQuestions();
-    this.counter();
   }
 
   componentDidUpdate() {
@@ -64,7 +64,9 @@ class Game extends Component {
           .sort(() => Math.random() - rng),
         question: results[0].question,
         index: 0,
+        showTimer: true,
       });
+      this.counter();
     }
   };
 
@@ -77,6 +79,7 @@ class Game extends Component {
       timer: 30,
       answered: true,
       next: true,
+      showTimer: false,
     });
   };
 
@@ -86,6 +89,7 @@ class Game extends Component {
       timer: 30,
       answered: true,
       next: true,
+      showTimer: false,
     });
   };
 
@@ -104,6 +108,7 @@ class Game extends Component {
         index: next,
         answered: false,
         next: false,
+        showTimer: true,
       });
       this.counter();
     }
@@ -145,7 +150,8 @@ class Game extends Component {
       answered,
       next,
       index,
-      timer } = this.state;
+      timer,
+      showTimer } = this.state;
 
     const maxQuestions = 4;
     return (
@@ -173,10 +179,14 @@ class Game extends Component {
               </button>
             )
           }
-          <div className="timer-container">
-            <p className="timer">Time remaining:</p>
-            <p className="timer">{timer}</p>
-          </div>
+          {
+            showTimer && (
+              <div className="timer-container">
+                <p className="timer">Time remaining:</p>
+                <p className="timer">{timer}</p>
+              </div>
+            )
+          }
         </div>
       </>
     );
