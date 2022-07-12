@@ -1,6 +1,24 @@
+:root {
+
+  --bg: conic-gradient(from 180deg, #9b5de5, #f15bb5, #fee440, #00bbf9, #00f5d4, #9b5de5);
+
+  --purple: #9b5de5;
+
+  --pink: #f15bb5;
+
+  --yellow: #fee440;
+
+  --blue: #00bbf9;
+
+  --cyan: #00f5d4;
+
+  --shadow: 1px 1px 5px var(--purple) , 0 0 25px var(--cyan) , 0 0 5px var(--yellow);
+
+}
+
 body {
-  background-color: #262930;
-  box-sizing: border-box;
+  background-image: var(--bg);
+  height: 100vh;
   margin: 0;
   padding: 0;
 }
@@ -9,29 +27,78 @@ body {
   text-align: center;
 }
 
-.login a, .login button {
+.login a {
   color: azure;
-  font-size: 20px;
+  font-size: 25px;
   text-decoration: none;
-}
-
-button:enabled {
-  color: #262930;
-}
-
-.login-logo {
-  height: 15vmin;
-  pointer-events: none;
 }
 
 .login-header {
   align-items: center;
-  color: white;
+  color: whitesmoke;
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
+  font-size: 30px;
   justify-content: center;
-  margin-top: 200px;
+  margin-top: 100px;
+  text-shadow: var(--shadow);
+}
+
+.login-logo {
+  pointer-events: none;
+  width: 60%;
+}
+
+input {
+  background-color: #ced2df90;
+  border: 2px dotted var(--blue);
+  color: #da1010;
+  font-size: 20px;
+  height: 30px;
+  width: 250px;
+}
+
+input::placeholder {
+  color: var(--purple);
+  font-size: 20px;
+}
+
+.button-login {
+  appearance: none;
+  background-color: grey;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: var(--yellow) 0 -2px 6px inset;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 30px;
+  font-weight: 500;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.3rem;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: all 0.15s;
+  user-select: none;
+  width: 150px;
+}
+
+.button-login:enabled {
+  background-color: var(--purple);
+  color: whitesmoke;
+}
+
+.button-login:active {
+  transform: scale(1.025);
+}
+
+.button-login:enabled:hover {
+  background-color: #ffc229;
+  box-shadow: var(--cyan) 0 -6px 8px inset;
+  transform: scale(1.125);
 }
 
 .game-header {
@@ -115,4 +182,11 @@ button:enabled {
 
 .button-feedback {
   color: azure;
+}
+
+@media screen and ( min-width : 1000px ) {
+
+  .login-logo {
+    width: 600px;
+  }
 }

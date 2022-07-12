@@ -55,7 +55,7 @@ class Login extends Component {
       <div className="login">
         <header className="login-header">
           <img src={ logo } className="login-logo" alt="logo" />
-          <p>SUA VEZ</p>
+          <p>YOUR TURN!</p>
         </header>
         <form onSubmit={ this.submitForm }>
           <input
@@ -64,7 +64,7 @@ class Login extends Component {
             onChange={ this.onHandle }
             data-testid="input-player-name"
             type="text"
-            placeholder="Nome"
+            placeholder="Name"
           />
           <br />
           <input
@@ -73,11 +73,12 @@ class Login extends Component {
             onChange={ this.onHandle }
             data-testid="input-gravatar-email"
             type="text"
-            placeholder="Email"
+            placeholder="E-mail"
           />
           <br />
           <br />
           <button
+            className="button-login"
             type="submit"
             data-testid="btn-play"
             disabled={ btnDisabled }
@@ -86,7 +87,7 @@ class Login extends Component {
           </button>
         </form>
         <br />
-        <Link to="/settings" data-testid="btn-settings">Settings</Link>
+        <Link to="/ranking" data-testid="btn-settings">Ranking</Link>
       </div>
     );
   }
