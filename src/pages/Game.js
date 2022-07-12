@@ -164,7 +164,7 @@ class Game extends Component {
           {
             next && (
               <button
-                className="next"
+                className="button-login next"
                 type="button"
                 data-testid="btn-next"
                 onClick={ this.nextQuestion }
@@ -173,8 +173,10 @@ class Game extends Component {
               </button>
             )
           }
-          <p className="timer">Tempo restante:</p>
-          <p className="timer">{timer}</p>
+          <div className="timer-container">
+            <p className="timer">Time remaining:</p>
+            <p className="timer">{timer}</p>
+          </div>
         </div>
       </>
     );

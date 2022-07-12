@@ -94,7 +94,7 @@ input::placeholder {
   touch-action: manipulation;
   transition: all 0.15s;
   user-select: none;
-  width: 150px;
+  width: 200px;
 }
 
 .button-login:enabled {
@@ -183,14 +183,21 @@ input::placeholder {
 
 .next {
   align-self: center;
-  height: 50px;
-  width: 40%;
+}
+
+.timer-container {
+  border-radius: 10px;
+  box-shadow: var(--yellow) 0 1px 4px , var(--yellow) 0 0 0 3px;
+  margin: 5% 10%;
+  padding: 2%;
 }
 
 .timer {
-  color: azure;
+  color: whitesmoke;
   font-size: 30px;
+  margin: 0;
   text-align: center;
+  text-shadow: var(--shadow);
 }
 
 .results {
@@ -230,6 +237,11 @@ input::placeholder {
 
   .question {
     margin: 5% auto;
+    width: 800px;
+  }
+
+  .timer-container {
+    margin: 2% auto;
     width: 800px;
   }
 }
