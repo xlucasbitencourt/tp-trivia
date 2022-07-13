@@ -1,5 +1,7 @@
 :root {
 
+  --color-dark: #24292f;
+
   --bg: conic-gradient(from 180deg, #9b5de5, #f15bb5, #fee440, #00bbf9, #00f5d4, #9b5de5);
 
   --purple: #9b5de5;
@@ -32,6 +34,21 @@ body {
   height: 100vh;
   margin: 0;
   padding: 0;
+}
+
+.main-header {
+  background-color: var(--color-dark);
+  color: snow;
+  height: 50px;
+  line-height: 50px;
+  margin-top: -16px;
+  text-align: center;
+  width: 100%;
+}
+
+.main-header a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .login {
