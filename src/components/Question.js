@@ -14,7 +14,8 @@ class Question extends Component {
             .replace(/&deg/g, '°')
             .replace(/&rsquo;/g, '´')
             .replace(/&uuml;/g, 'ü')
-            .replace(/&eacute;/g, 'é')}
+            .replace(/&eacute;/g, 'é')
+            .replace(/&ouml;/g, 'ö')}
         </h1>
         <h2 data-testid="question-text">
           {question
@@ -24,7 +25,8 @@ class Question extends Component {
             .replace(/&deg/g, '°')
             .replace(/&rsquo;/g, '´')
             .replace(/&uuml;/g, 'ü')
-            .replace(/&eacute;/g, 'é')}
+            .replace(/&eacute;/g, 'é')
+            .replace(/&ouml;/g, 'ö')}
         </h2>
         <div data-testid="answer-options" className="question-options">
           {answers.map((answer, index) => (
@@ -44,7 +46,8 @@ class Question extends Component {
                   .replace(/&deg/g, '°')
                   .replace(/&rsquo;/g, '´')
                   .replace(/&uuml;/g, 'ü')
-                  .replace(/&eacute;/g, 'é')}
+                  .replace(/&eacute;/g, 'é')
+                  .replace(/&ouml;/g, 'ö')}
               </button>
             ) : (
               <button
@@ -62,7 +65,8 @@ class Question extends Component {
                   .replace(/&deg/g, '°')
                   .replace(/&rsquo;/g, '´')
                   .replace(/&uuml;/g, 'ü')
-                  .replace(/&eacute;/g, 'é')}
+                  .replace(/&eacute;/g, 'é')
+                  .replace(/&ouml;/g, 'ö')}
               </button>
             )
           )) }
