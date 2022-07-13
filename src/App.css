@@ -113,15 +113,22 @@ input::placeholder {
 }
 
 .game-header {
-  background-color: aqua;
+  align-items: center;
+  display: flex;
+  height: 80px;
+  justify-content: center;
 }
 
 .game-header img {
-  width: 50px;
+  border-radius: 10px;
+  width: 80px;
 }
 
 .game-header span {
-  margin: 0 5%;
+  color: whitesmoke;
+  font-size: 18px;
+  margin: 0 2%;
+  text-shadow: var(--shadow);
 }
 
 .container {
@@ -254,6 +261,10 @@ input::placeholder {
 
   .login-logo {
     width: 600px;
+  }
+
+  .game-header span {
+    font-size: 25px;
   }
 
   .question {
