@@ -6,8 +6,26 @@ class Question extends Component {
     const { category, correctAnswer, answers, question, answerF, answered } = this.props;
     return (
       <main className="question">
-        <h1 data-testid="question-category">{category}</h1>
-        <h2 data-testid="question-text">{question}</h2>
+        <h1 data-testid="question-category">
+          {category
+            .replace(/&#039;/g, '\'')
+            .replace(/&quot;/g, '"')
+            .replace(/&amp;/g, '&')
+            .replace(/&deg/g, '°')
+            .replace(/&rsquo;/g, '´')
+            .replace(/&uuml;/g, 'ü')
+            .replace(/&eacute;/g, 'é')}
+        </h1>
+        <h2 data-testid="question-text">
+          {question
+            .replace(/&#039;/g, '\'')
+            .replace(/&quot;/g, '"')
+            .replace(/&amp/g, '&')
+            .replace(/&deg/g, '°')
+            .replace(/&rsquo;/g, '´')
+            .replace(/&uuml;/g, 'ü')
+            .replace(/&eacute;/g, 'é')}
+        </h2>
         <div data-testid="answer-options" className="question-options">
           {answers.map((answer, index) => (
             answer !== correctAnswer ? (
@@ -19,7 +37,14 @@ class Question extends Component {
                 className={ answered ? 'question-wrong' : undefined }
                 disabled={ answered }
               >
-                {answer}
+                {answer
+                  .replace(/&#039;/g, '\'')
+                  .replace(/&quot;/g, '"')
+                  .replace(/&amp/g, '&')
+                  .replace(/&deg/g, '°')
+                  .replace(/&rsquo;/g, '´')
+                  .replace(/&uuml;/g, 'ü')
+                  .replace(/&eacute;/g, 'é')}
               </button>
             ) : (
               <button
@@ -30,7 +55,14 @@ class Question extends Component {
                 className={ answered ? 'question-right' : undefined }
                 disabled={ answered }
               >
-                {answer}
+                {answer
+                  .replace(/&#039;/g, '\'')
+                  .replace(/&quot;/g, '"')
+                  .replace(/&amp/g, '&')
+                  .replace(/&deg/g, '°')
+                  .replace(/&rsquo;/g, '´')
+                  .replace(/&uuml;/g, 'ü')
+                  .replace(/&eacute;/g, 'é')}
               </button>
             )
           )) }
