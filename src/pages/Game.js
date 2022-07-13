@@ -96,6 +96,7 @@ class Game extends Component {
   nextQuestion = () => {
     const { questions, index } = this.state;
     const { history } = this.props;
+    const rng = 0.5;
     const maxQuestions = 4;
     const next = index + 1;
     if (index === maxQuestions) history.push('/feedback');
@@ -103,7 +104,8 @@ class Game extends Component {
       this.setState({
         category: questions[next].category,
         correctAnswer: questions[next].correct_answer,
-        answers: questions[next].incorrect_answers.concat(questions[next].correct_answer),
+        answers: questions[next].incorrect_answers.concat(questions[next].correct_answer)
+          .sort(() => Math.random() - rng),
         question: questions[next].question,
         index: next,
         answered: false,

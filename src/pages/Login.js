@@ -16,7 +16,7 @@ class Login extends Component {
     const { value } = target;
     const { name } = target;
 
-    this.setState({ [name]: value }, this.activateButton());
+    this.setState({ [name]: value }, () => { this.activateButton(); });
   }
 
   activateButton = () => {

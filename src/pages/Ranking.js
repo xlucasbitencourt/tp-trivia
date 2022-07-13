@@ -10,12 +10,17 @@ class Ranking extends Component {
   componentDidMount() {
     if (localStorage.getItem('ranking')) {
       const list = JSON.parse(localStorage.getItem('ranking'));
-      const sortList = list.sort((a, b) => b.score - a.score);
+      const ranking = list.sort((a, b) => b.score - a.score);
       this.setState({
-        ranking: sortList,
+        ranking,
         first: false,
       });
     } else this.setState({ first: true });
+  }
+
+  clearRanking = () => {
+    localStorage.removeItem('ranking');
+    this.setState({ first: true });
   }
 
   render() {
@@ -47,6 +52,13 @@ class Ranking extends Component {
           data-testid="btn-go-home"
         >
           Play Again
+        </button>
+        <button
+          type="button"
+          className="button-login clear-ranking"
+          onClick={ this.clearRanking }
+        >
+          Clear ranking
         </button>
       </div>
     );

@@ -250,7 +250,7 @@ input::placeholder {
 }
 
 .player-container {
-  height: 65vh;
+  height: 50vh;
   overflow: auto;
 }
 
@@ -261,8 +261,11 @@ input::placeholder {
   width: 300px;
 }
 
-.play-again {
-  margin-bottom: 10%;
+.clear-ranking:enabled {
+  background-color: var(--yellow);
+  color: var(--pink);
+  margin: 5% 0;
+  width: 300px;
 }
 
 .button-feedback {
@@ -290,7 +293,7 @@ input::placeholder {
   }
 
   .timer-container {
-    margin: 2% auto;
+    margin: 1% auto;
     width: 800px;
   }
 
